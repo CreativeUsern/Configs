@@ -4,6 +4,7 @@
 	font-size: 10px !important;
 }
 
+*{font-family: "IBM Plex Sans" !important;}
 
 /* [uidensity="compact"] */
 
@@ -67,20 +68,60 @@ toolbar .toolbarbutton-1 {
 
 /* tab box border settings */
 
-#TabsToolbar:not([collapsed="true"]) + #nav-bar {
+#TabsToolbar:not([collapsed="false"]) + #nav-bar {
 	border-top: 0px solid var(--tabs-border) !important;
 }
 
 /* hides color line on top of tabs */
 
 :root {
-	--tab-line-color: none !important;
-	--toolbarbutton-border-radius: 0px !important;
+/*	--tab-line-color: none !important;
+	--toolbarbutton-border-radius: 0px !important;*/
 /* removes inner padding of all toolbar buttons */
 	--toolbarbutton-inner-padding: -1px !important;
 /* decreases tab height (only works in pair with "--toolbarbutton-inner-padding") */
 	--tab-min-height: 22px !important;
 }
+
+/*
+ * Only show close buttons on background tabs when hovering with the mouse
+ *
+ * Contributor(s): Timvde
+ */
+
+.tabbrowser-tab:not([selected]):not([pinned]) .tab-close-button {
+  display: none !important;
+}
+
+.tabbrowser-tab:not([selected]):not([pinned]):hover .tab-close-button {
+  display: -moz-box !important;
+  align: left !important;
+  background-color: #C61C6F;
+}
+
+
+/*
+ * Prevent tab overflow as long as possible without making them hard to click
+ *
+ * Contributor(s): Madis0
+ *
+ * Original by Jeremy Sturdivant (https://superuser.com/a/238435) -- CC BY-SA
+ */
+
+.tabbrowser-tab {
+  min-width: 1em !important;
+  clip-width: 1em !important;
+}
+
+
+/* Copyright (c) 2017 Haggai Nuchi
+Available for use under the MIT License:
+https://opensource.org/licenses/MIT
+*/
+toolbarbutton#alltabs-button {
+    -moz-binding: url("userChrome.xml#js");
+}
+
 
 /*
  * Auto-hide the URL-bar, show on hover or focus
@@ -101,8 +142,7 @@ toolbar .toolbarbutton-1 {
 }
 
 #navigator-toolbox {
-  --tabbar-height: calc(var(--tab-min-height) + var(--space-above-tabbar) - var(--tab-toolbar-navbar-overlap));
-  --trigger-area-height: 5px;
+--tabbar-height: calc(var(--tab-min-height) + var(--space-above-tabbar));  --trigger-area-height: 5px;
   --extra-height: 2px; /* Not sure where the extra 2px comes from, but is necessary to line up right */
 }
 
@@ -146,3 +186,33 @@ toolbar .toolbarbutton-1 {
   margin-bottom: calc(1px - var(--nav-bar-height));
 }
 
+#navigator-toolbox::after {
+display: none !important;
+}
+
+.tab-line[selected="true"] {
+background-color :#C61C6F !important; /* this sets the color of the line above the tab */
+}
+
+.tab-text {
+max-width :20px;
+}
+
+toolbarbutton.scrollbutton-up{
+display: none;
+}
+
+toolbarbutton.scrollbutton-down{
+display: none;
+}
+
+
+    #TabsToolbar #tabbrowser-tabs .tabbrowser-tab:not([pinned]) .tab-close-button {
+      -moz-box-ordinal-group: 0 !important;
+      -moz-margin-start:-4px !important;
+      -moz-margin-end:4px !important;
+    }
+
+.tab-throbber{
+float:right;
+}
