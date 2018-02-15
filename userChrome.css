@@ -1,7 +1,5 @@
 @namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
 
-*{font-family: "IBM Plex Sans" !important; font-weight: lighter !important;}
-
 /* [uidensity="compact"] */
 
 /* changes padding of toolbar buttons */
@@ -14,8 +12,8 @@ toolbar .toolbarbutton-1 {
 /* adjusts the padding and margin of the URL box buttons */
 
 :root .urlbar-icon {
-	width: 10px !important;
-	height: 10px !important;
+	width: 16px !important;
+	height: 16px !important;
 	padding: 4px !important;
 }
 
@@ -36,7 +34,7 @@ toolbar .toolbarbutton-1 {
 /* adjusts the padding of the three lines menu button */
 
 #PanelUI-menu-button {
-	padding-inline-start: 4px !important;
+	padding-inline-start: 8px !important;
 	padding-inline-end: 8px !important;
 }
 
@@ -92,7 +90,7 @@ toolbar .toolbarbutton-1 {
 .tabbrowser-tab:not([selected]):not([pinned]):hover .tab-close-button {
   display: -moz-box !important;
   align: left !important;
-  background-color: #C61C6F;
+/*  background-color: #C61C6F;*/
 }
 
 
@@ -119,200 +117,6 @@ toolbarbutton#alltabs-button {
 }
 
 
-/*
- * Auto-hide the URL-bar, show on hover or focus
- *
- * Contributor(s): Alex Vallat
- */
-
-:root[uidensity=compact] #navigator-toolbox {
-  --nav-bar-height: 33px;
-}
-
-:root:not([uidensity]) #navigator-toolbox {
-  --nav-bar-height: 39px;
-}
-
-:root[uidensity=touch] #navigator-toolbox {
-  --nav-bar-height: 41px;
-}
-
-#navigator-toolbox {
---tabbar-height: calc(var(--tab-min-height) + var(--space-above-tabbar));  --trigger-area-height: 5px;
-  --extra-height: 2px; /* Not sure where the extra 2px comes from, but is necessary to line up right */
-}
-
-@media (-moz-os-version: windows-win7) {
-  /* Windows 7 has an extra 4px top margin when not maximized */
-  :root[sizemode="normal"] #navigator-toolbox {
-    --tabbar-height: calc(4px + var(--tab-min-height) + var(--space-above-tabbar) - var(--tab-toolbar-navbar-overlap));
-  }
-}
-
-#toolbar-menubar {
-  margin-top: 0px !important; /* This is usually 0, but under Win7 can be given an extra 1px when not maximized */
-}
-
-:root:not([customizing]) #nav-bar
-{
-  overflow-y: hidden;
-  max-height:0;
-  min-height:0 !important;
-  padding-top:0 !important;
-  padding-bottom:0 !important;
-  opacity: 0;
-}
-
-:root:not([customizing]) :hover > #nav-bar,
-:root:not([customizing]) #nav-bar:focus-within {
-  max-height: var(--nav-bar-height);
-  opacity: 1;
-  transition: opacity 0.15s ease-in, max-height 0.15s linear;
-}
-
-:root:not([customizing]) #navigator-toolbox {
-  max-height: calc(var(--tabbar-height) + var(--trigger-area-height) + var(--extra-height));
-  min-height: var(--tabbar-height);
-  margin-bottom: calc(-1 * var(--trigger-area-height));
-}
-
-:root:not([customizing]) #navigator-toolbox:hover,
-:root:not([customizing]) #navigator-toolbox:focus-within {
-  max-height: calc(var(--tabbar-height) + var(--nav-bar-height) + var(--extra-height));
-  margin-bottom: calc(1px - var(--nav-bar-height));
-}
-
-#navigator-toolbox::after {
-display: none !important;
-}
-
-.tab-line[selected="true"] {
-background-color :#C61C6F !important; /* this sets the color of the line above the tab */
-}
-
-.tab-text {
-max-width :20px;
-style: light;
-}
-
-toolbarbutton.scrollbutton-up{
-display: none;
-}
-
-toolbarbutton.scrollbutton-down{
-display: none;
-}
-
-
-    #TabsToolbar #tabbrowser-tabs .tabbrowser-tab:not([pinned]) .tab-close-button {
-      -moz-box-ordinal-group: 0 !important;
-      -moz-margin-start:-4px !important;
-      -moz-margin-end:4px !important;
-    }
-
-.tab-throbber{
-float:right;
-}
-
-#urlbar {
-    /* Place bindings.xml in the same folder as userChrome.css */
-    -moz-binding: url("bindings.xml#urlbar") !important;}
-
-
-
-#titlebar {
-  -moz-appearance: -moz-mac-vibrancy-light
-}
-
-
-/*
- * Originally from:
- * http://forums.mozillazine.org/viewtopic.php?p=14404121#p14404121
- */
-
-#urlbar {
-  position: relative;
-  z-index: 1;
-}
-
-#identity-box:after {
-  content: '';
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  z-index: -1;
-  background: white;
-  opacity: 0.2;
-}
-
-
-/* There is also grantedPermissions, but irrelevant. */
-
-/* about:about */
-#urlbar[pageproxystate='valid'] #identity-box.unknownIdentity:after {
-  background: #ff0039; /* Firefox Red 50 */
-}
-
-/* about:config */
-#urlbar[pageproxystate='valid'] #identity-box.chromeUI:after {
-  background: #0a84ff; /* Firefox Blue 50 */
-}
-
-/* uBlock Origin Dashboard */
-#urlbar[pageproxystate='valid'] #identity-box.extensionPage:after {
-  background: #45a1ff; /* Firefox Blue 40 */
-}
-
-/* https://www.github.com/ */
-#urlbar[pageproxystate='valid'] #identity-box.verifiedIdentity:after{
-  background: #058b00; /* Firefox Green 70 */
-}
-
-/* https://www.google.com/ */
-#urlbar[pageproxystate='valid'] #identity-box.verifiedDomain:after{
-  background: #12bc00; /* Firefox Green 60 */
-}
-
-/* https://mixed-script.badssl.com/ */
-#urlbar[pageproxystate='valid'] #identity-box.mixedActiveBlocked:after {
-  background: #30e60b; /* Firefox Green 50 */
-}
-
-/* https://mixed.badssl.com/ */
-#urlbar[pageproxystate='valid'] #identity-box.mixedDisplayContent:after {
-  background: #d7b600; /* Firefox Yellow 60 */
-}
-
-/* https://very.badssl.com/ */
-#urlbar[pageproxystate='valid'] #identity-box.mixedDisplayContentLoadedActiveBlocked:after {
-  background: #d7b600; /* Firefox Yellow 60 */
-}
-
-/* https://self-signed.badssl.com/ but add certificate exception */
-#urlbar[pageproxystate='valid'] #identity-box.certUserOverridden:after {
-  background: #ffe900; /* Firefox Yellow 50 */
-}
-
-/* Don't know an example for this */
-#urlbar[pageproxystate='valid'] #identity-box.weakCipher:after {
-  background: #a47f00; /* Firefox Yellow 70 */
-}
-
-/* https://mixed-script.badssl.com/ but disable protection */
-#urlbar[pageproxystate='valid'] #identity-box.mixedActiveContent:after {
-  background: #d70022;  /* Firefox Red 60 */
-}
-
-/* http://http-login.badssl.com/ */
-#urlbar[pageproxystate='valid'] #identity-box.insecureLoginForms:after {
-  background: #a4000f;  /* Firefox Red 70 */
-}
-
-
-
 /* Remove New Tab Flash */
 
 @-moz-document url(chrome://browser/content/browser.xul)
@@ -322,3 +126,21 @@ float:right;
     background: #323234 !important;
   }
 }
+#TabsToolbar {
+    padding-inline-start: initial !important;
+}
+.tabbrowser-tabs:not([movingtab]) .tabbrowser-tab[first-visible-tab] .tab-background,
+.tabbrowser-tabs[movingtab] .tabbrowser-tab[first-visible-tab][style*="translateX(0px)"] .tab-background {
+    border-inline-start: initial !important;
+}
+
+#main-window:not(#f) .tabbrowser-tab .tab-close-button { margin: 0 4px 0 -2px !important; }
+#main-window:not(#f) .tabbrowser-tab .tab-close-button,
+#main-window:not(#f) .tabbrowser-tab:hover .tab-icon-image,
+#main-window:not(#f) .tabbrowser-tab[busy] .tab-icon-image { display: none !important; }
+#main-window:not(#f) .tabbrowser-tab:hover .tab-close-button { display: -moz-box !important; }
+#main-window:not(#f) .tabbrowser-tab:hover .tab-icon-image { -moz-box-ordinal-group: 1 !important; }
+#main-window:not(#f) .tabbrowser-tab .tab-close-button { -moz-box-ordinal-group: 2 !important; }
+#main-window:not(#f) #.tabbrowser-tab .tab-throbber { -moz-box-ordinal-group: 3 !important; }
+#main-window:not(#f) .tabbrowser-tab .tab-label-container { -moz-box-ordinal-group: 4 !important; }
+#main-window:not(#f) .tabbrowser-tab .tab-icon-sound { -moz-box-ordinal-group: 5 !important; }
